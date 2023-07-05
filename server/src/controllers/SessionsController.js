@@ -26,13 +26,12 @@ class SessionsController {
     const matchedPassword = await compare(password, user.password)
 
     if (!matchedPassword) {
-      throw new AppError("Password do not match", 403)
+      throw new AppError("Invalid password", 403)
     }
 
     const token = await sign({
       user: {
-        id: user.id,
-        email: user.email
+        id: user.id
       }
     }, jwt.secret, { expiresIn: jwt.expiresIn })
 
